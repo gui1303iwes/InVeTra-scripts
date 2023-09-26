@@ -5,7 +5,7 @@ time_manner = Channel10_time;
 timeDMS = DMS1.XData;
 begintime_manner = datetime(2023,08,23,12,45,27);
 time_abs_manner = begintime_manner + seconds(time_manner);
-tol     = 0.000001; % tolerance to use with the find function
+tol     = 0.001; % tolerance to use with the find function
 %begintime_DMS = datetime(2023,08,23,11,03,18,779000);
 %Timesync noch etwas angepasst
 begintime_DMS = datetime(2023,08,23,10,50,18,779000);
@@ -25,15 +25,21 @@ Bolt4 = Channel10;
 figure;
 subplot(2,1,1);
 plot(time_abs_manner, Bolt1);
-hold on; grid on ; grid minor;
-plot(time_abs_manner, Bolt2);
-plot(time_abs_manner, Bolt3);
-plot(time_abs_manner, Bolt4);
-legend('Bolt1','Bolt2','Bolt3','Bolt4')
+hold on; grid on;
+% plot(time_abs_manner, Bolt2);
+% plot(time_abs_manner, Bolt3);
+% plot(time_abs_manner, Bolt4);
+legend('Bolt1')
 subplot(2,1,2);
 plot(time_abs_DMS, DMS2.YData);
+grid on;
 ylim([-0.25, 0.25]);
 legend('Gantner')
+xlim([min(time_abs_manner), max(time_abs_manner)]);
+hold off
+
+% Link the x-axis scales of the subplots
+linkaxes([subplot(2,1,1), subplot(2,1,2)], 'x');
 %% Telemetrie (manner)
 % Find the time intervals where the bolt is connected to the telemetrie
 % system. This is done by:
